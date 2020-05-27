@@ -1,2 +1,0 @@
-# jjoules-plugin
-
