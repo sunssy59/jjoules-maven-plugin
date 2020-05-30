@@ -11,17 +11,21 @@ import com.jjoules.energyDomain.EnergyDomain;
  */
 public class EnergyMesureIt {
 	
+	public static EnergyMesureIt ENERGY_MESURE_IT = new EnergyMesureIt();
+	
 	private double enegyBefore;
 	private double energyAfter;
 	
 	private EnergyDomain domain;
 	
-	public EnergyMesureIt(EnergyDomain domain) {
-		this.domain = domain;
+	private EnergyMesureIt() {
 	}
 	
 	public EnergyDomain getEnergyDomain() {
 		return this.domain;
+	}
+	public void setEnergyDomain(EnergyDomain newDomain) {
+		this.domain = newDomain;
 	}
 	/**
 	 * @return the energy consumed before checking 

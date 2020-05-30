@@ -1,5 +1,7 @@
 package com.jjoules;
 
+
+
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
@@ -21,11 +23,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
-import com.jjoules.energyDomain.rapl.RaplPackageDomain;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.jjoules.energyDevice.EnergyDevice;
+import com.jjoules.energyDevice.rapl.RaplDevice;
+import com.jjoules.energyDomain.EnergyDomain;
 
 ///**
 // * Goal which touches a timestamp file.
@@ -39,24 +39,43 @@ public class JjoulesMojo
     extends AbstractMojo
 {	
 	
-	/**
-     * Location of the file.
-     * @parameter expression="${project.build.directory}"
-     * @required
-     */
-      private File outputDirectory;
+//	/**
+//     * Location of the file.
+//     * @parameter expression="${project.build.directory}"
+//     * @required
+//     */
+//      private File outputDirectory;
       
-      private EnergyMesureIt energyMesureIt = new EnergyMesureIt(new RaplPackageDomain(0));
+//      @Parameter(defaultValue = "${project}", required = true, readonly = true)
+//      MavenProject project;
+      
+//      private EnergyMesureIt energyMesureIt = new EnergyMesureIt(new RaplPackageDomain(0));
+		
 		
 	  public void execute() throws MojoExecutionException, MojoFailureException {
 		  
-		  Logger.setLog(getLog());
+		  try {
+				EnergyDevice device = new RaplDevice();
+				device.configure(device.getAvailableDomains());
+				getLog().info("All available domains => "+device.getAvailableDomains());
+				getLog().info("All configured domains => "+device.getConfiguredDomains());
+				
+				getLog().info("\n---- Energy consumed in the device -------");
+				for(EnergyDomain domain : device.getAvailableDomains()) {
+					getLog().info("Energy consumed before => "+EnergyMesureIt.ENERGY_MESURE_IT.getEnergyBefore());
+					EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(domain);
+					EnergyMesureIt.ENERGY_MESURE_IT.begin();
+					for(int i=0;i<10000; i++) {}
+					double diff = EnergyMesureIt.ENERGY_MESURE_IT.end();
+					getLog().info("Energy consumed after => "+ EnergyMesureIt.ENERGY_MESURE_IT.getEnergyAfter());
+					getLog().info("diff => "+diff+"\n");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		  
-		  energyMesureIt.begin();
-		  getLog().info("En cours d'exécution.........");
-		  double end = energyMesureIt.end();
 		  
-		  getLog().info("Fin de l'exécution => energy consumed = "+end);
+		  
 //		  File f = outputDirectory;
 //          if ( !f.exists() )
 //          {
@@ -80,62 +99,4 @@ public class JjoulesMojo
 //          }
 	}
 	
-	
-	
-	
-	
-	
-	
-//	@Parameter(defaultValue = "${project}", readonly = true, required = true)
-//    private MavenProject project;
-//
-//	public void execute() throws MojoExecutionException, MojoFailureException {
-//        getLog().info("Hello world");
-//   }
-    
-    /**
-     * Location of the file.
-     * @parameter expression="${project.build.directory}"
-     * @required
-     */
-//    private File outputDirectory;
-//
-//    public void execute()
-//        throws MojoExecutionException
-//    {
-//        File f = outputDirectory;
-//
-//        if ( !f.exists() )
-//        {
-//            f.mkdirs();
-//        }
-//
-//        File touch = new File( f, "touch.txt" );
-//
-//        FileWriter w = null;
-//        try
-//        {
-//            w = new FileWriter( touch );
-//
-//            w.write( "touch-test.txt\n" );
-//        }
-//        catch ( IOException e )
-//        {
-//            throw new MojoExecutionException( "Error creating file " + touch, e );
-//        }
-//        finally
-//        {
-//            if ( w != null )
-//            {
-//                try
-//                {
-//                    w.close();
-//                }
-//                catch ( IOException e )
-//                {
-//                    // ignore
-//                }
-//            }
-//        }
-//    }
 }

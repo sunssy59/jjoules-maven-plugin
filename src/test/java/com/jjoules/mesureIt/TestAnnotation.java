@@ -23,8 +23,8 @@ class TestAnnotation {
 	}
 	
 	@Test
-	@MesureIt
 	@DisplayName("testMesureIt")
+	@MesureIt
 	void mesureItTest() throws InterruptedException {
 		assertTrue(true);
 	}

@@ -19,10 +19,10 @@ class EnergyMesureItTest {
 
 	@Test
 	public void mesureItGiveAnEnergyMesuredValueGreaterOrEqualsToValueBeforeCheking() {
-		EnergyMesureIt energyMesureIt = new EnergyMesureIt(new RaplPackageDomain(0));
-		energyMesureIt.begin();
+		EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(new RaplPackageDomain(0));
+		EnergyMesureIt.ENERGY_MESURE_IT.begin();
 		for(int i=0;i<1000;i++) {}
-		assertThat(energyMesureIt.end()).isGreaterThanOrEqualTo(0);
+		assertThat(EnergyMesureIt.ENERGY_MESURE_IT.end()).isGreaterThanOrEqualTo(0);
 	}
 
 }

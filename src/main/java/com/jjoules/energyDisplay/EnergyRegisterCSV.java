@@ -11,16 +11,21 @@ import java.util.Map;
  */
 class EnergyRegisterCSV extends EnergyDisplayHandler{
 	
+	public static EnergyRegisterCSV ENERGY_REGISTER_CSV = new EnergyRegisterCSV();
+	
 	private String fileName;
 
-	public EnergyRegisterCSV(String fileName) {
-		this.fileName = fileName;
+	private EnergyRegisterCSV() {
 	}
 	/**
 	 * @return the fileName
 	 */
 	public String getFileName() {
 		return fileName;
+	}
+	
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	
 

@@ -4,6 +4,7 @@
 package com.jjoules.mesureIt;
 
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 
 import com.jjoules.EnergyMesureIt;
 import com.jjoules.energyDisplay.EnergyPrinter;
@@ -27,23 +27,23 @@ import static org.junit.platform.commons.support.AnnotationSupport.isAnnotated;
  *
  */
 public class MesureItExtension implements BeforeAllCallback, BeforeTestExecutionCallback, BeforeEachCallback,
-		AfterTestExecutionCallback, AfterAllCallback {
+		AfterTestExecutionCallback, AfterAllCallback /*,TestInstancePostProcessor*/{
 	
-	private static final Namespace NAMESPACE = Namespace.create("com.jjoules","mesureIt","MesureItExtension");
+	//private static final Namespace NAMESPACE = Namespace.create("com.jjoules","mesureIt","MesureItExtension");
 	private static EnergyDomain DOMAIN =  new RaplPackageDomain(0);
-	private static EnergyMesureIt ENERGY_MESURE_IT = new EnergyMesureIt(DOMAIN);
 	
 	@Override
 	public void beforeEach(ExtensionContext context) throws Exception {
+		EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(DOMAIN);
 		
-
 	}
 
 	@Override
 	public void beforeTestExecution(ExtensionContext context) throws Exception {
 		if (!shouldBeMesureIt(context))
 			return;
-		ENERGY_MESURE_IT.begin();
+		EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(DOMAIN);
+		EnergyMesureIt.ENERGY_MESURE_IT.begin();
 
 	}
 
@@ -51,19 +51,20 @@ public class MesureItExtension implements BeforeAllCallback, BeforeTestExecution
 	public void beforeAll(ExtensionContext context) throws Exception {
 		if (!shouldBeMesureIt(context))
 			return;
-		ENERGY_MESURE_IT.begin();
+		EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(DOMAIN);
+		EnergyMesureIt.ENERGY_MESURE_IT.begin();
 	}
 
 	@Override
 	public void afterAll(ExtensionContext context) throws Exception {
 		if (!shouldBeMesureIt(context))
 			return;
-		double end = ENERGY_MESURE_IT.end();
-//		Map<String,Double> res = new HashMap<String,Double>();
-//		res.put(DOMAIN.getDomainName(), end);
-//		EnergyPrinter.ENERGY_PRINTER.displayIt(res);
+		double end = EnergyMesureIt.ENERGY_MESURE_IT.end();
+		Map<String,Double> res = new HashMap<String,Double>();
+		res.put(DOMAIN.getDomainName(), end);
+		EnergyPrinter.ENERGY_PRINTER.displayIt(res);
 		
-		report("Test container",context,end);
+		//report("Test container",context,end);
 
 	}
 
@@ -71,11 +72,11 @@ public class MesureItExtension implements BeforeAllCallback, BeforeTestExecution
 	public void afterTestExecution(ExtensionContext context) throws Exception {
 		if (!shouldBeMesureIt(context))
 			return;
-		double end = ENERGY_MESURE_IT.end();
-//		Map<String,Double> res = new HashMap<String,Double>();
-//		res.put(DOMAIN.getDomainName(), end);
-//		EnergyPrinter.ENERGY_PRINTER.displayIt(res);
-		report("Test",context,end);
+		double end = EnergyMesureIt.ENERGY_MESURE_IT.end();
+		Map<String,Double> res = new HashMap<String,Double>();
+		res.put(DOMAIN.getDomainName(), end);
+		EnergyPrinter.ENERGY_PRINTER.displayIt(res);
+		//report("Test",context,end);
 
 	}
 	
@@ -89,9 +90,14 @@ public class MesureItExtension implements BeforeAllCallback, BeforeTestExecution
 		String message = String.format("%s '%s' took %1.2f mj.", unit, context.getDisplayName(), energy);
 		context.publishReportEntry("MesureIt", message);
 	}
-	
-	private enum LaunchEnergyKey {
-		CLASS, TEST
-	}
 
+//	@Override
+//	public void postProcessTestInstance(Object testInstance, ExtensionContext context) throws Exception {
+//		for(Method method : testInstance.getClass().getMethods()) {
+//			System.out.println(method.getDeclaredAnnotations().toString());
+//		}
+//		
+//		
+//	}
+	
 }

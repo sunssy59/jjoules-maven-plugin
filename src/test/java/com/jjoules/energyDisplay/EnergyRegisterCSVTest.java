@@ -32,10 +32,10 @@ class EnergyRegisterCSVTest {
 	
 	@BeforeEach
 	public void init() {
-		this.registerCsv = new EnergyRegisterCSV("out.csv");
+		EnergyRegisterCSV.ENERGY_REGISTER_CSV.setFileName("out.csv");
 		try {
 			 this.mockDevice = new MockEnergyDevice();
-			 this.energyConsumedByDevice = registerCsv.getEnergyConsumedByDevice(this.mockDevice);
+			 this.energyConsumedByDevice = EnergyRegisterCSV.ENERGY_REGISTER_CSV.getEnergyConsumedByDevice(this.mockDevice);
 		} catch (NoSuchEnergyDeviceException e) {
 			e.printStackTrace();
 		}	
@@ -43,8 +43,8 @@ class EnergyRegisterCSVTest {
 
 	@Test
 	public void displayItPoduceFileWithCorrecteLines() {
-		registerCsv.displayIt(energyConsumedByDevice);
-		File file = new File(registerCsv.getFileName());
+		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt(energyConsumedByDevice);
+		File file = new File(EnergyRegisterCSV.ENERGY_REGISTER_CSV.getFileName());
 		try {
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
