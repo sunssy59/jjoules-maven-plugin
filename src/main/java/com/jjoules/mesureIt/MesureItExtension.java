@@ -27,7 +27,7 @@ import static org.junit.platform.commons.support.AnnotationSupport.isAnnotated;
  *
  */
 public class MesureItExtension implements BeforeAllCallback, BeforeTestExecutionCallback, BeforeEachCallback,
-		AfterTestExecutionCallback, AfterAllCallback /*,TestInstancePostProcessor*/{
+		AfterTestExecutionCallback, AfterAllCallback {
 	
 	//private static final Namespace NAMESPACE = Namespace.create("com.jjoules","mesureIt","MesureItExtension");
 	private static EnergyDomain DOMAIN =  new RaplPackageDomain(0);
