@@ -4,10 +4,6 @@ COPY src /home/jjoules-plugin/src
 COPY pom.xml /home/jjoules-plugin
 
 RUN mvn -f /home/jjoules-plugin/pom.xml clean install
-	
 
+CMD mvn jjoules:runtest
 
-
-#FROM openjdk:11-jre-slim
-
-ENTRYPOINT ["mvn","jjoules:runtest"]
