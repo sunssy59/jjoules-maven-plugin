@@ -4,6 +4,7 @@ COPY src /home/jjoules-plugin/src
 COPY pom.xml /home/jjoules-plugin
 
 RUN mvn -f /home/jjoules-plugin/pom.xml clean install
+workdir /home/jjoules-plugin
 
 CMD mvn jjoules:runtest
 
