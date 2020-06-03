@@ -13,7 +13,7 @@ public class EnergyMesureIt {
 	
 	public static EnergyMesureIt ENERGY_MESURE_IT = new EnergyMesureIt();
 	
-	private double enegyBefore;
+	private double energyBefore;
 	private double energyAfter;
 	
 	private EnergyDomain domain;
@@ -31,11 +31,11 @@ public class EnergyMesureIt {
 	 * @return the energy consumed before checking 
 	 */
 	public double getEnergyBefore() {
-		return this.enegyBefore;
+		return this.energyBefore;
 	}
 	
 	/**
-	 * @return the energy consumed before checking 
+	 * @return the energy consumed after checking 
 	 */
 	public double getEnergyAfter() {
 		return this.energyAfter;
@@ -44,7 +44,7 @@ public class EnergyMesureIt {
 	 * 
 	 */
 	public void begin() {
-		this.enegyBefore = this.domain.getEneregyConsumed();
+		this.energyBefore = this.domain.getEneregyConsumed();
 		//System.out.println("Start => "+ this.getEnergyBefore());
 	}
 	/**
@@ -54,7 +54,7 @@ public class EnergyMesureIt {
 		this.energyAfter = this.domain.getEneregyConsumed();
 		//System.out.println("end => "+end);
 		//System.out.println("diff => "+ (end - this.getEnergyBefore()));
-		return this.energyAfter - this.enegyBefore;
+		return this.getEnergyAfter() - this.getEnergyBefore();
 	}
 
 }

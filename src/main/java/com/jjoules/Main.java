@@ -10,16 +10,16 @@ public class Main {
 		try {
 			EnergyDevice device = new RaplDevice();
 			device.configure(device.getAvailableDomains());
-			System.out.println("All available domains => "+device.getAvailableDomains());
+			System.out.println("\nAll available domains => "+device.getAvailableDomains());
 			System.out.println("All configured domains => "+device.getConfiguredDomains());
 			
 			System.out.println("\n---- Energy consumed in the device -------");
 			for(EnergyDomain domain : device.getAvailableDomains()) {
 				
 				System.out.println("\n++ Energy consumed in "+domain+" ++");
-				System.out.println("Energy consumed before => "+EnergyMesureIt.ENERGY_MESURE_IT.getEnergyBefore());
 				EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(domain);
 				EnergyMesureIt.ENERGY_MESURE_IT.begin();
+				System.out.println("Energy consumed before => "+EnergyMesureIt.ENERGY_MESURE_IT.getEnergyBefore());
 				
 				for(int i=0;i<10000; i++) {}
 				

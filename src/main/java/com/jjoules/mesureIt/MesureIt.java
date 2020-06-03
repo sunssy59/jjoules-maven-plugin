@@ -21,7 +21,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith(MesureItExtension.class)
 public @interface MesureIt {
-	//String arg1() default "test";
-	
-	//Class energyMesureIt() default EnergyMesureIt.class;
 }
