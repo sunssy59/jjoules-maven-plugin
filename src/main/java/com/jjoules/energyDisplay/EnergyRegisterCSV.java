@@ -3,13 +3,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author sanoussy
  *
  */
-class EnergyRegisterCSV extends EnergyDisplayHandler{
+public class EnergyRegisterCSV extends EnergyDisplayHandler{
 	
 	public static EnergyRegisterCSV ENERGY_REGISTER_CSV = new EnergyRegisterCSV();
 	
@@ -54,5 +55,13 @@ class EnergyRegisterCSV extends EnergyDisplayHandler{
 		}
 			
 	}
+	
+//	public static void main(String[] args) {
+//		EnergyRegisterCSV.ENERGY_REGISTER_CSV.setFileName("output.csv");
+//		Map<String, Double> energyConsumedByDevice = new HashMap<String,Double>();
+//		energyConsumedByDevice.put("Test1", 100.0);
+//		energyConsumedByDevice.put("Test2", 200.0);
+//		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt(energyConsumedByDevice);
+//	}
 
 }

@@ -2,6 +2,7 @@ package com.jjoules;
 
 
 
+
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
@@ -21,11 +22,12 @@ package com.jjoules;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.lifecycle.Lifecycle;
+import org.apache.maven.plugin.lifecycle.Phase;
 import org.apache.maven.plugins.annotations.Mojo;
-
-import com.jjoules.energyDevice.EnergyDevice;
-import com.jjoules.energyDevice.rapl.RaplDevice;
-import com.jjoules.energyDomain.EnergyDomain;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+//import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 ///**
 // * Goal which touches a timestamp file.
@@ -34,7 +36,7 @@ import com.jjoules.energyDomain.EnergyDomain;
 // * 
 // * @phase process-sources
 // */
-@Mojo(name = "runtest")
+@Mojo(name = "runtest",Lyfecycle.)
 public class JjoulesMojo
     extends AbstractMojo
 {	
@@ -46,33 +48,41 @@ public class JjoulesMojo
 //     */
 //      private File outputDirectory;
       
-//      @Parameter(defaultValue = "${project}", required = true, readonly = true)
-//      MavenProject project;
+      @Parameter(defaultValue = "${project}", required = true, readonly = true)
+      MavenProject project;
       
 //      private EnergyMesureIt energyMesureIt = new EnergyMesureIt(new RaplPackageDomain(0));
 		
 		
 	  public void execute() throws MojoExecutionException, MojoFailureException {
 		  
-		  try {
-				EnergyDevice device = new RaplDevice();
-				device.configure(device.getAvailableDomains());
-				getLog().info("All available domains => "+device.getAvailableDomains());
-				getLog().info("All configured domains => "+device.getConfiguredDomains());
-				
-				getLog().info("\n---- Energy consumed in the device -------");
-				for(EnergyDomain domain : device.getAvailableDomains()) {
-					getLog().info("Energy consumed before => "+EnergyMesureIt.ENERGY_MESURE_IT.getEnergyBefore());
-					EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(domain);
-					EnergyMesureIt.ENERGY_MESURE_IT.begin();
-					for(int i=0;i<10000; i++) {}
-					double diff = EnergyMesureIt.ENERGY_MESURE_IT.end();
-					getLog().info("Energy consumed after => "+ EnergyMesureIt.ENERGY_MESURE_IT.getEnergyAfter());
-					getLog().info("diff => "+diff+"\n");
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		  
+		  Lifecycle l;
+		  boolean b = l.getPhases().contains(new Phase().);
+		  
+		  
+		  
+		  
+		  
+//		  try {
+//				EnergyDevice device = new RaplDevice();
+//				device.configure(device.getAvailableDomains());
+//				getLog().info("All available domains => "+device.getAvailableDomains());
+//				getLog().info("All configured domains => "+device.getConfiguredDomains());
+//				
+//				getLog().info("\n---- Energy consumed in the device -------");
+//				for(EnergyDomain domain : device.getAvailableDomains()) {
+//					getLog().info("Energy consumed before => "+EnergyMesureIt.ENERGY_MESURE_IT.getEnergyBefore());
+//					EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(domain);
+//					EnergyMesureIt.ENERGY_MESURE_IT.begin();
+//					for(int i=0;i<10000; i++) {}
+//					double diff = EnergyMesureIt.ENERGY_MESURE_IT.end();
+//					getLog().info("Energy consumed after => "+ EnergyMesureIt.ENERGY_MESURE_IT.getEnergyAfter());
+//					getLog().info("diff => "+diff+"\n");
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 		  
 		  
 		  

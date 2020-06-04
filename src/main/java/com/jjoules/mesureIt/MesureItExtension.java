@@ -4,7 +4,6 @@
 package com.jjoules.mesureIt;
 
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,6 @@ import static org.junit.platform.commons.support.AnnotationSupport.isAnnotated;
 public class MesureItExtension implements BeforeAllCallback, BeforeTestExecutionCallback, BeforeEachCallback,
 		AfterTestExecutionCallback, AfterAllCallback {
 	
-	//private static final Namespace NAMESPACE = Namespace.create("com.jjoules","mesureIt","MesureItExtension");
 	private static EnergyDomain DOMAIN =  new RaplPackageDomain(0);
 	
 	@Override

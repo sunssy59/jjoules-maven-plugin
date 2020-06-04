@@ -21,6 +21,10 @@ public class EnergyMesureIt {
 	private EnergyMesureIt() {
 	}
 	
+	public EnergyMesureIt(EnergyDomain domain) {
+		this.domain = domain;
+	}
+	
 	public EnergyDomain getEnergyDomain() {
 		return this.domain;
 	}

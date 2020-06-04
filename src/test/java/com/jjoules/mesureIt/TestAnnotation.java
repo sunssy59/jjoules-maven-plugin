@@ -14,7 +14,6 @@ import com.jjoules.mesureIt.MesureIt;
  * @author sanoussy
  *
  */
-@MesureIt
 class TestAnnotation {
 	
 	@Test
@@ -23,8 +22,6 @@ class TestAnnotation {
 	}
 	
 	@Test
-	@DisplayName("testMesureIt")
-	@MesureIt
 	void mesureItTest() throws InterruptedException {
 		assertTrue(true);
 	}
