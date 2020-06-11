@@ -2,8 +2,6 @@ package com.jjoules.mesureIt;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.jjoules.EnergyMesureIt;
-
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
@@ -19,6 +17,6 @@ import java.lang.annotation.Target;
 
 @Target({TYPE, METHOD, ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(MesureItExtension.class)
+@ExtendWith(EnergyMesureExtension.class)
 public @interface MesureIt {
 }

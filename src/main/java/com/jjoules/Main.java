@@ -1,5 +1,11 @@
 package com.jjoules;
 
+import java.io.File;
+import java.net.URL;
+
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+
 import com.jjoules.energyDevice.EnergyDevice;
 import com.jjoules.energyDevice.rapl.RaplDevice;
 import com.jjoules.energyDomain.EnergyDomain;
@@ -30,6 +36,29 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+//		File file = new File("/home/sanoussy/stage/plugins/jjoules-plugin/target/test-classes");
+////		System.out.println("-- List --");
+////		for(String s : file.list()) {
+////			System.out.println(s);
+////		}
+////		System.out.println("-- ListFile --");
+////		for(File f : file.listFiles()) {
+////			System.out.println(f.getName());
+////		}
+//		
+//		JjoulesMojo moj = new JjoulesMojo();
+//		try {
+//			moj.execute();
+//		} catch (MojoExecutionException e) {
+//			e.printStackTrace();
+//		} catch (MojoFailureException e) {
+//			e.printStackTrace();
+//		}
+//		for(URL url : moj.classPathUrls) {
+//			System.out.println(url.getPath().replace(".", "/"));
+//		}
+		
 	}
 
 }

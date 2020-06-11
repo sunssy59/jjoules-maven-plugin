@@ -100,6 +100,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-compat</artifactId>
+            <version>3.2.1</version>
+            <scope>test</scope>
+        </dependency>
+		
 		<!-- dependencies to annotations -->
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -122,11 +129,31 @@
 		</dependency>
 		
 		
+	    <dependency>
+	      <groupId>org.apache.felix</groupId>
+	      <artifactId>org.osgi.core</artifactId>
+	      <version>1.0.0</version>
+	    </dependency>
     
+    
+        <dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.5</version>
+		</dependency>
     
   </dependencies>
   
   <build>
+  	
+  	<!-- <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>META-INF</directory>
+        <targetPath>META-INF</targetPath>
+      </resource>
+    </resources> -->
+  	
 	<plugins>
 		<plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -137,21 +164,25 @@
                 <target>1.8</target>
                 <compilerArgument>-proc:none</compilerArgument>
             </configuration>
-        </plugin>
-        <plugin> 
-          <groupId>com.jjoules</groupId>
-		  <artifactId>jjoules-maven-plugin</artifactId>
-		  <version>1.0-SNAPSHOT</version>
-          <!-- <configuration> 
-          <mymavenparameter>valeur</mymavenparameter> 
-        </configuration>  -->
-      </plugin> 
+        </plugin> 
       
-      <plugin>
+      <!-- <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
           <version>3.5.2</version>
-      </plugin>
+          <executions>
+              <execution>
+                  <id>mojo-descriptor</id>
+                  <goals>
+                      <goal>descriptor</goal>
+                  </goals>
+              </execution>
+          </executions>
+          <configuration>
+              <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+          </configuration>
+  
+      </plugin> -->
       
       <plugin>
 		  <groupId>org.apache.maven.plugins</groupId>
@@ -166,25 +197,86 @@
 		  </configuration>
        </plugin>
        
+       <!-- for plugin.xml file -->
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+          <goalPrefix>jjoules</goalPrefix>
+          <!-- <outputDirectory>target/dir</outputDirectory> -->
+        </configuration>
+      </plugin>
+       
+       <!-- <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-dependency-plugin</artifactId>
+	        <version>3.1.2</version>
+	        <executions>
+	          <execution>
+	            <id>copy-dependencies</id>
+	            <phase>test</phase>
+	            <goals>
+	              <goal>copy-dependencies</goal>
+	            </goals>
+	            <configuration>
+	              <outputDirectory>${project.build.directory}/alternateLocation</outputDirectory>
+	              <overWriteReleases>false</overWriteReleases>
+	              <overWriteSnapshots>false</overWriteSnapshots>
+	              <overWriteIfNewer>true</overWriteIfNewer>
+	            </configuration>
+	          </execution>
+	        </executions>
+      </plugin> -->
+      
+      <!-- <plugin>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>nbm-maven-plugin</artifactId>
+		    <version>3.8.1</version>
+		    <extensions>true</extensions>
+		    <configuration>
+		        <publicPackages>
+		            <publicPackage>com.jjoules.*</publicPackage>
+		        </publicPackages>
+		    </configuration>
+		</plugin>
+      
+      <plugin>
+	    <groupId>org.apache.felix</groupId>
+	    <artifactId>maven-bundle-plugin</artifactId>
+	    <extensions>true</extensions>
+	    <configuration>
+	      <instructions>
+	        <Export-Package>com.jjoules.*</Export-Package>
+	        <Private-Package>org.foo.myproject.*</Private-Package>
+	        <Bundle-Activator>org.foo.myproject.impl1.Activator</Bundle-Activator>
+	      </instructions>
+	    </configuration>
+	  </plugin> -->
+      
+      
+       
        <!--  Using this plugin in an other project -->
        <!-- <plugin>
-				<groupId>com.jjoules</groupId>
-			  <artifactId>jjoules-plugin</artifactId>
-			  <version>1.0-SNAPSHOT</version>
+			<groupId>com.jjoules</groupId>
+  			<artifactId>jjoules-maven-plugin</artifactId>
+  			<version>1.0-SNAPSHOT</version>
 				<executions>
 					<execution>						
 						<phase>test</phase>
 						<configuration>
 							<outputDirectory>${basedir}/target/energy/</outputDirectory>
-						</configuration>
+						</configuration> 
 						<goals>
 							<goal>runtest</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin>-->
+			</plugin> -->
 	</plugins> 
  </build>
+ 
+ 
   
   
   

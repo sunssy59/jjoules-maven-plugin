@@ -5,6 +5,7 @@ package com.jjoules.energyDisplay;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,9 +13,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import com.jjoules.energyDevice.EnergyDevice;
-import com.jjoules.energyDisplay.EnergyPrinter;
 import com.jjoules.energyDisplay.util.MockEnergyDevice;
 import com.jjoules.exceptions.NoSuchEnergyDeviceException;
+import com.jjoules.utils.Result;
 
 /**
  * @author sanoussy
@@ -22,13 +23,17 @@ import com.jjoules.exceptions.NoSuchEnergyDeviceException;
  */
 class EnergyDisplayHandlerTest {
 	
-	private Map<String, Double> energyConsumedByDevice;
+	private Map<String, Result> energyConsumedByDevice;
 	EnergyPrinter printer;
 	@BeforeEach
 	public void init() throws NoSuchEnergyDeviceException {
+		this.energyConsumedByDevice = new HashMap<String,Result>();
 		EnergyDevice mockDevice = new MockEnergyDevice();
 		this.printer = EnergyPrinter.ENERGY_PRINTER;
-		this.energyConsumedByDevice = printer.getEnergyConsumedByDevice(mockDevice);
+		Map<String, Double> res = printer.getEnergyConsumedByDevice(mockDevice);
+		for(String deviceName : res.keySet()){
+			this.energyConsumedByDevice.put(deviceName, new Result(res.get(deviceName),0));
+		}
 	}
 	
 	@ParameterizedTest(name = "{1} enregy consumed is {0}")

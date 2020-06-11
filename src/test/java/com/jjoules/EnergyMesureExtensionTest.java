@@ -7,6 +7,8 @@ package com.jjoules;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import com.jjoules.mesureIt.EnergyMesureExtension;
+
 /**
  * @author sanoussy
  *
@@ -23,5 +25,6 @@ class EnergyMesureExtensionTest {
     void sleep50ms() throws Exception {
         Thread.sleep(50);
     }
+    
 
 }

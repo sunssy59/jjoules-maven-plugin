@@ -4,6 +4,8 @@
 package com.jjoules.mesureIt;
 
 
+import static org.junit.platform.commons.support.AnnotationSupport.isAnnotated;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +20,7 @@ import com.jjoules.EnergyMesureIt;
 import com.jjoules.energyDisplay.EnergyPrinter;
 import com.jjoules.energyDomain.EnergyDomain;
 import com.jjoules.energyDomain.rapl.RaplPackageDomain;
-
-import static org.junit.platform.commons.support.AnnotationSupport.isAnnotated;
+import com.jjoules.utils.Result;
 
 /**
  * @author sanoussy
@@ -58,8 +59,8 @@ public class MesureItExtension implements BeforeAllCallback, BeforeTestExecution
 		if (!shouldBeMesureIt(context))
 			return;
 		double end = EnergyMesureIt.ENERGY_MESURE_IT.end();
-		Map<String,Double> res = new HashMap<String,Double>();
-		res.put(DOMAIN.getDomainName(), end);
+		Map<String,Result> res = new HashMap<String,Result>();
+		res.put(DOMAIN.getDomainName(), new Result(end,0));
 		EnergyPrinter.ENERGY_PRINTER.displayIt(res);
 		
 		//report("Test container",context,end);
@@ -71,8 +72,8 @@ public class MesureItExtension implements BeforeAllCallback, BeforeTestExecution
 		if (!shouldBeMesureIt(context))
 			return;
 		double end = EnergyMesureIt.ENERGY_MESURE_IT.end();
-		Map<String,Double> res = new HashMap<String,Double>();
-		res.put(DOMAIN.getDomainName(), end);
+		Map<String,Result> res = new HashMap<String,Result>();
+		res.put(DOMAIN.getDomainName(), new Result(end,0));
 		EnergyPrinter.ENERGY_PRINTER.displayIt(res);
 		//report("Test",context,end);
 

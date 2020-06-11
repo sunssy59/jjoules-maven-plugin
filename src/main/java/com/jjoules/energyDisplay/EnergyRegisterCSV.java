@@ -3,8 +3,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+
+import com.jjoules.utils.Result;
 
 /**
  * @author sanoussy
@@ -28,13 +29,11 @@ public class EnergyRegisterCSV extends EnergyDisplayHandler{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	
-
 	@Override
-	public void displayIt(Map<String, Double> energyConsumedByDevice) {
+	public void displayIt(Map<String, Result> energyConsumedByDevice) {
 		int id = 1;
 		File file = new File(this.fileName);
-		if (file.exists()) {
+		if (! file.exists()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
@@ -44,16 +43,17 @@ public class EnergyRegisterCSV extends EnergyDisplayHandler{
 		try {
 			FileWriter  fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write("id;tag;energyConsumed\n");
+			bw.write("id;tag;energyConsumed;duration\n");
 			for(String domainName : energyConsumedByDevice.keySet()){
-				bw.write(id+";"+domainName+";"+energyConsumedByDevice.get(domainName)+"\n");
+				Result result = energyConsumedByDevice.get(domainName);
+				bw.write(id+";"+domainName+";"+result.getEnergyConsumed()+";"+result.getDuration()+"\n");
 				id +=1;
 			}
 			bw.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-			
+		
 	}
 	
 //	public static void main(String[] args) {

@@ -5,6 +5,8 @@ package com.jjoules.energyDisplay;
 
 import java.util.Map;
 
+import com.jjoules.utils.Result;
+
 
 /**
  * @author sanoussy
@@ -19,9 +21,10 @@ public class EnergyPrinter extends EnergyDisplayHandler {
 	}
 
 	@Override
-	public void displayIt(Map<String, Double> energyConsumedByDevice) {
-		for(String domainName: energyConsumedByDevice.keySet()) {
-			System.out.println(domainName+" => " + this.getEnergyToPrint(energyConsumedByDevice, domainName));
+	public void displayIt(Map<String, Result> energyConsumedByDevice) {
+		for(String name: energyConsumedByDevice.keySet()) {
+			System.out.println("["+name+"] energy consumed => " + this.getEnergyToPrint(energyConsumedByDevice, name)+" microJ");
+			System.out.println("["+name+"] duration => " + this.getDuration(energyConsumedByDevice, name)+" ms");
 		}
 	}
 

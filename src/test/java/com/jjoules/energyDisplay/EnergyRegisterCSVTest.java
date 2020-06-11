@@ -10,14 +10,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.jjoules.energyDisplay.EnergyRegisterCSV;
 import com.jjoules.energyDisplay.util.MockEnergyDevice;
 import com.jjoules.exceptions.NoSuchEnergyDeviceException;
+import com.jjoules.utils.Result;
 
 /**
  * @author sanoussy
@@ -26,7 +27,7 @@ import com.jjoules.exceptions.NoSuchEnergyDeviceException;
 class EnergyRegisterCSVTest {
 	
 	private MockEnergyDevice mockDevice;
-	private Map<String, Double> energyConsumedByDevice;
+	private Map<String, Result> energyConsumedByDevice;
 	private EnergyRegisterCSV registerCsv;
 	
 	
@@ -34,8 +35,12 @@ class EnergyRegisterCSVTest {
 	public void init() {
 		EnergyRegisterCSV.ENERGY_REGISTER_CSV.setFileName("out.csv");
 		try {
-			 this.mockDevice = new MockEnergyDevice();
-			 this.energyConsumedByDevice = EnergyRegisterCSV.ENERGY_REGISTER_CSV.getEnergyConsumedByDevice(this.mockDevice);
+			this.energyConsumedByDevice = new HashMap<String,Result>();
+			this.mockDevice = new MockEnergyDevice();
+			Map<String, Double> res = EnergyRegisterCSV.ENERGY_REGISTER_CSV.getEnergyConsumedByDevice(this.mockDevice);
+			for(String deviceName : res.keySet()){
+				this.energyConsumedByDevice.put(deviceName, new Result(res.get(deviceName),0));
+			}
 		} catch (NoSuchEnergyDeviceException e) {
 			e.printStackTrace();
 		}	
@@ -49,7 +54,7 @@ class EnergyRegisterCSVTest {
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 			for(int i=0; i<energyConsumedByDevice.size();i++) {
-				assertThat(br.readLine()).isIn("id;tag;energyConsumed","1;package-0;1000.0","2;core;100.0","3;dram;400.0","4;uncore;59.0");
+				assertThat(br.readLine()).isIn("id;tag;energyConsumed;duration","1;package-0;1000.0;0","2;core;100.0;0","3;dram;400.0;0","4;uncore;59.0;0");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
