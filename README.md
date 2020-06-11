@@ -15,6 +15,7 @@ Just add these tow dependencies in your pom.xml.
 		<groupId>com.jjoules</groupId>
 		<artifactId>jjoules-maven-plugin</artifactId>
 	  	<version>1.0-SNAPSHOT</version>
+	  	<scope>test</scope>
     </dependency>
 ```
 
