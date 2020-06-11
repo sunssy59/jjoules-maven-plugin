@@ -84,6 +84,8 @@ public class EnergyMesureExtension implements BeforeTestExecutionCallback, After
 		//saving result in CSV file
 		EnergyRegisterCSV.ENERGY_REGISTER_CSV.setFileName("out.csv");
 		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt(resultEnergyConsumed);
+		
+		//saving result in CSV file
 		EnergyRegisterJson.ENERGY_REGISTER_Json.setFileName("out.json");
 		EnergyRegisterJson.ENERGY_REGISTER_Json.displayIt(resultEnergyConsumed);
 		

@@ -55,6 +55,9 @@ public class EnergyRegisterJson extends EnergyDisplayHandler {
 		try {
 			FileWriter  fw = new FileWriter(file.getAbsoluteFile());
 			gson.toJson(gson.toJsonTree(res), fw);
+			fw.flush();
+			fw.close();
+			System.out.println(gson.toJsonTree(res));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
