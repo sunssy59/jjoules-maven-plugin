@@ -48,13 +48,14 @@ class EnergyRegisterCSVTest {
 
 	@Test
 	public void displayItPoduceFileWithCorrecteLines() {
+		EnergyRegisterCSV.CURRENT_CLASS_NAME = "test";
 		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt(energyConsumedByDevice);
 		File file = new File(EnergyRegisterCSV.ENERGY_REGISTER_CSV.getFileName());
 		try {
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 			for(int i=0; i<energyConsumedByDevice.size();i++) {
-				assertThat(br.readLine()).isIn("id;tag;energyConsumed;duration","1;package-0;1000.0;0","2;core;100.0;0","3;dram;400.0;0","4;uncore;59.0;0");
+				assertThat(br.readLine()).isIn("id;tag;classTest;energyConsumed;duration","10;package-0;test;1000.0;0","11;core;test;100.0;0","12;dram;test;400.0;0","13;uncore;test;59.0;0");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

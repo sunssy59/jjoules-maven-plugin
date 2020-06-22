@@ -3,8 +3,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.jjoules.utils.Data;
 import com.jjoules.utils.Result;
 
 /**
@@ -14,7 +17,8 @@ import com.jjoules.utils.Result;
 public class EnergyRegisterCSV extends EnergyDisplayHandler{
 	
 	public static EnergyRegisterCSV ENERGY_REGISTER_CSV = new EnergyRegisterCSV();
-	
+	public static List<Data> ALL_DATA = new ArrayList<Data>();
+	public static String CURRENT_CLASS_NAME = "";
 	private String fileName;
 
 	private EnergyRegisterCSV() {
@@ -31,6 +35,7 @@ public class EnergyRegisterCSV extends EnergyDisplayHandler{
 	}
 	@Override
 	public void displayIt(Map<String, Result> energyConsumedByDevice) {
+		saveResultOfClass(energyConsumedByDevice,CURRENT_CLASS_NAME,ALL_DATA);
 		int id = 1;
 		File file = new File(this.fileName);
 		if (! file.exists()) {
@@ -43,11 +48,15 @@ public class EnergyRegisterCSV extends EnergyDisplayHandler{
 		try {
 			FileWriter  fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write("id;tag;energyConsumed;duration\n");
-			for(String domainName : energyConsumedByDevice.keySet()){
-				Result result = energyConsumedByDevice.get(domainName);
-				bw.write(id+";"+domainName+";"+result.getEnergyConsumed()+";"+result.getDuration()+"\n");
-				id +=1;
+			bw.write("id;tag;classTest;energyConsumed;duration\n");
+			for(Data data : ALL_DATA) {
+				int subId = 0;
+				for(Result result : data.getMethods()) {
+					bw.write(id+""+subId+";"+result.getTestName()+";"+data.getClassName()+";"+result.getEnergyConsumed()+";"+result.getDuration()+"\n");
+					subId++;
+				}
+				id++;
+				
 			}
 			bw.close();
 		} catch (IOException e1) {

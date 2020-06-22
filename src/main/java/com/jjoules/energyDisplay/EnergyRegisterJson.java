@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.jjoules.utils.Data;
 import com.jjoules.utils.Result;
 
 /**
@@ -20,7 +21,9 @@ import com.jjoules.utils.Result;
 public class EnergyRegisterJson extends EnergyDisplayHandler {
 
 	public static EnergyRegisterJson ENERGY_REGISTER_Json = new EnergyRegisterJson();
+	public static String CURRENT_CLASS_NAME = "";
 	
+	public static List<Data> ALL_DATA = new ArrayList<Data>();
 	private static String fileName = "out.json";
 	
 	
@@ -40,10 +43,7 @@ public class EnergyRegisterJson extends EnergyDisplayHandler {
 	@Override
 	public void displayIt(Map<String, Result> energyConsumedByDevice) {
 		Gson gson = new Gson();
-		List<Result> res = new ArrayList<Result>();
-		for(String name : energyConsumedByDevice.keySet()) {
-			res.add(new Result(name,energyConsumedByDevice.get(name)));
-		}
+		saveResultOfClass(energyConsumedByDevice,CURRENT_CLASS_NAME,ALL_DATA);
 		File file = new File(this.fileName);
 		if (! file.exists()) {
 			try {
@@ -54,14 +54,34 @@ public class EnergyRegisterJson extends EnergyDisplayHandler {
 		}
 		try {
 			FileWriter  fw = new FileWriter(file.getAbsoluteFile());
-			gson.toJson(gson.toJsonTree(res), fw);
+			gson.toJson(gson.toJsonTree(ALL_DATA), fw);
 			fw.flush();
 			fw.close();
-			System.out.println(gson.toJsonTree(res));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		
+	}
+
+	
+	public static void saveIt() {
+		Gson gson = new Gson();
+		File file = new File("test.json");
+		if (! file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			FileWriter  fw = new FileWriter(file.getAbsoluteFile());
+			gson.toJson(gson.toJsonTree(ALL_DATA), fw);
+			fw.flush();
+			fw.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }

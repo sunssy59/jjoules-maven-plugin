@@ -3,11 +3,14 @@
  */
 package com.jjoules.energyDisplay;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.jjoules.energyDevice.EnergyDevice;
 import com.jjoules.exceptions.DeviceNotConfiguredException;
+import com.jjoules.utils.Data;
 import com.jjoules.utils.Result;
 
 /**
@@ -53,6 +56,18 @@ public abstract class EnergyDisplayHandler {
 	 */
 	public long getDuration(Map<String, Result> energyConsumed,String domainName) {
 		return energyConsumed.get(domainName).getDuration();		
+	}
+	
+	/**
+	 * @param energyConsumedByDevice
+	 */
+	public void saveResultOfClass(Map<String, Result> energyConsumedByDevice,String currentClassName,List<Data> allData) {
+		List<Result> results = new ArrayList<Result>();
+		for(String name : energyConsumedByDevice.keySet()) {
+			results.add(new Result(name,energyConsumedByDevice.get(name)));
+		}
+		Data data = new Data(currentClassName,results);
+		allData.add(data);
 	}
 
 }

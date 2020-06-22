@@ -11,26 +11,26 @@ package com.jjoules.utils;
 public class Result {
 	
 	private String testName;
-	private double energyConsumed;
+	private double energy;
 	private long duration;
 
 	/**
 	 * 
 	 */
 	public Result(double energyConsumed,long duration) {
-		this.energyConsumed = energyConsumed;
+		this.energy = energyConsumed;
 		this.duration = duration;
 	}
 	public Result(String testName,double energyConsumed,long duration) {
-		this.energyConsumed = energyConsumed;
+		this.energy = energyConsumed;
 		this.duration = duration;
 		this.testName = testName;
 	}
 	
 	public Result(String testName,Result res) {
-		this.energyConsumed = res.getEnergyConsumed();
-		this.duration = res.getDuration();
 		this.testName = testName;
+		this.energy = res.getEnergyConsumed();
+		this.duration = res.getDuration();
 	}
 
 	
@@ -44,7 +44,7 @@ public class Result {
 	 * @return the energyConsumed
 	 */
 	public double getEnergyConsumed() {
-		return energyConsumed;
+		return energy;
 	}
 
 	/**
