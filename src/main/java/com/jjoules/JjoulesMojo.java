@@ -91,14 +91,6 @@ public class JjoulesMojo
 		  ClassLoader cl = new URLClassLoader(classPathUrls.toArray(new URL[classPathUrls.size()]),getClass().getClassLoader());
 		  getLog().info("Classes to scan are in : " + classesDirectory.getPath());
 		  
-		  try {
-			TestCoverage.report(cl,this.classPathUrls);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		  //CodeCoverage.report(this, module, cl, project.getBasedir(), classesToScan, me, classes.toArray(new String[classes.size()]));
-		  
 	  } 
 	  
 	  public void getAllUrls(File classesDirectory) {

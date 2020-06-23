@@ -6,6 +6,7 @@ package com.jjoules.utils;
 import java.util.List;
 
 /**
+ * Class for saving the result of one class test
  * @author sanoussy
  *
  */

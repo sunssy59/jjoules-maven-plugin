@@ -40,9 +40,6 @@ public class EnergyMesureExtension implements BeforeTestExecutionCallback, After
 	public void beforeAll(ExtensionContext context) throws Exception {
 		EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(domain);
 		resultEnergyConsumed =  new HashMap<String,Result>();
-//		EnergyMesureIt.ENERGY_MESURE_IT.begin();
-//		getClassStore(context).put(LaunchEnergyKey.CLASS_TEST_ENERGY,ENERGY_MESURE_IT.getEnergyBefore());
-//		getClassStore(context).put(LaunchEnergyKey.CLASS_TEST_DURATION,System.currentTimeMillis());
 	}
 	
 	@Override
@@ -62,23 +59,13 @@ public class EnergyMesureExtension implements BeforeTestExecutionCallback, After
 		
 		// end can be replace by ENERGY_MESURE_IT.getEnergyAfter()-startEnergy
 		this.resultEnergyConsumed.put(testMethod.getName(), new Result(end,duration));
-		//System.out.println(duration);
 		
 		//LOGGER.info(() -> 
 				//String.format("Method [%s]  took  %s ; end => %s  mj", testMethod.getName(),ENERGY_MESURE_IT.getEnergyAfter()-startEnergy, end));
-		
-		//System.out.println(String.format("Method [%s]  took  %s ; end => %s  mj", testMethod.getName(),ENERGY_MESURE_IT.getEnergyAfter()-startEnergy , end));
 	}
 
 	@Override
 	public void afterAll(ExtensionContext context) throws Exception {
-		//double startEnergy = getClassStore(context).remove(LaunchEnergyKey.CLASS_TEST_ENERGY, double.class);
-		//long startTime = getClassStore(context).remove(LaunchEnergyKey.CLASS_TEST_DURATION, long.class);
-		//double end = EnergyMesureIt.ENERGY_MESURE_IT.end();
-		//long duration = System.currentTimeMillis() - startTime;
-		// end can be replace by ENERGY_MESURE_IT.getEnergyAfter()-startEnergy
-		//this.resultEnergyConsumed.put(context.getRequiredTestClass().getSimpleName(), new Result(end,duration));
-		
 		// printing result
 		EnergyPrinter.ENERGY_PRINTER.displayIt(resultEnergyConsumed);
 		
@@ -108,13 +95,5 @@ public class EnergyMesureExtension implements BeforeTestExecutionCallback, After
 		METHOD_TEST_ENERGY, CLASS_TEST_ENERGY,
 		METHOD_TEST_DURATION, CLASS_TEST_DURATION
 	}
-	
-//	private static boolean shouldBeMesureIt(ExtensionContext context) {
-//		return context.getElement()
-//				.map(el -> isAnnotated(el, MesureIt.class))
-//				.orElse(false);
-//	}
-
-	
 
 }

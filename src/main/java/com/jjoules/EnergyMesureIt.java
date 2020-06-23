@@ -6,6 +6,7 @@ package com.jjoules;
 import com.jjoules.energyDomain.EnergyDomain;
 
 /**
+ * class for mesuring an energy with two methods <em>begin</em> and <em>end</em>
  * @author sanoussy
  *
  */
@@ -49,15 +50,12 @@ public class EnergyMesureIt {
 	 */
 	public void begin() {
 		this.energyBefore = this.domain.getEneregyConsumed();
-		//System.out.println("Start => "+ this.getEnergyBefore());
 	}
 	/**
 	 * 
 	 */
 	public double end() {
 		this.energyAfter = this.domain.getEneregyConsumed();
-		//System.out.println("end => "+end);
-		//System.out.println("diff => "+ (end - this.getEnergyBefore()));
 		return this.getEnergyAfter() - this.getEnergyBefore();
 	}
 
