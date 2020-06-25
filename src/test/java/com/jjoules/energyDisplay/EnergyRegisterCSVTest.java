@@ -49,7 +49,11 @@ class EnergyRegisterCSVTest {
 	@Test
 	public void displayItPoduceFileWithCorrecteLines() {
 		EnergyRegisterCSV.CURRENT_CLASS_NAME = "test";
-		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt(energyConsumedByDevice);
+		EnergyRegisterCSV.ENERGY_REGISTER_CSV.saveResultOfClass(energyConsumedByDevice, EnergyRegisterCSV.CURRENT_CLASS_NAME, EnergyRegisterCSV.ALL_DATA);
+		//EnergyDisplayHandler.initDir();
+		EnergyRegisterCSV.ENERGY_REGISTER_CSV.setFileName("out.csv");
+		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt();
+		
 		File file = new File(EnergyRegisterCSV.ENERGY_REGISTER_CSV.getFileName());
 		try {
 			FileReader fr = new FileReader(file);

@@ -3,6 +3,7 @@
  */
 package com.jjoules.mesureIt;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
 
 import com.jjoules.EnergyMesureIt;
+import com.jjoules.energyDisplay.EnergyDisplayHandler;
 import com.jjoules.energyDisplay.EnergyPrinter;
 import com.jjoules.energyDisplay.EnergyRegisterCSV;
 import com.jjoules.energyDisplay.EnergyRegisterJson;
@@ -24,20 +26,46 @@ import com.jjoules.energyDomain.EnergyDomain;
 import com.jjoules.energyDomain.rapl.RaplPackageDomain;
 import com.jjoules.utils.Result;
 
+
 /**
  * @author sanoussy
  *
  */
 public class EnergyMesureExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback, AfterAllCallback,BeforeAllCallback {
+	
+	public static boolean FIRST_TEST_PASSED = false;
+	private static int NB_TESTS = 0;
+	private static int NB_TESTS_PASSED = 0;
 
 	private static final Logger LOGGER = Logger.getLogger(EnergyMesureExtension.class.getName());
 	private static final EnergyDomain domain = new RaplPackageDomain(0);
 	private static EnergyMesureIt ENERGY_MESURE_IT = new EnergyMesureIt(domain);
 	private static Map<String,Result> resultEnergyConsumed;
 	
+	public void getNbTestsClasses(File classesDir) {
+		  File currentFile = classesDir;
+		  File[] allFiles = currentFile.listFiles();
+		  for(File file : allFiles) {
+			  if(file.exists()) {
+				  if(file.isFile()) {
+					  NB_TESTS++;
+				  }else if(file.isDirectory()) {
+					  getNbTestsClasses(file);
+				  }
+			  }
+
+		  }
+	}
 	
 	@Override
 	public void beforeAll(ExtensionContext context) throws Exception {
+		NB_TESTS_PASSED++;
+		if(!FIRST_TEST_PASSED) {
+			getNbTestsClasses(new File("src/test"));
+			FIRST_TEST_PASSED = true;
+			//EnergyDisplayHandler.initDir();
+		}
+			
 		EnergyMesureIt.ENERGY_MESURE_IT.setEnergyDomain(domain);
 		resultEnergyConsumed =  new HashMap<String,Result>();
 	}
@@ -67,20 +95,29 @@ public class EnergyMesureExtension implements BeforeTestExecutionCallback, After
 	@Override
 	public void afterAll(ExtensionContext context) throws Exception {
 		// printing result
-		EnergyPrinter.ENERGY_PRINTER.displayIt(resultEnergyConsumed);
+		EnergyPrinter.ENERGY_PRINTER.ALL_RESULTS = resultEnergyConsumed;
+		EnergyPrinter.ENERGY_PRINTER.displayIt();
 		
 		String className = context.getRequiredTestClass().getSimpleName();
 		
-		//saving result in CSV file
+		//saving result in CSV intermediate register 
 		EnergyRegisterCSV.CURRENT_CLASS_NAME = className;
-		EnergyRegisterCSV.ENERGY_REGISTER_CSV.setFileName("out.csv");
-		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt(resultEnergyConsumed);
+		LOGGER.info("Saving result in CSV intermediate register for test => "+ className);
+		EnergyDisplayHandler.saveResultOfClass(resultEnergyConsumed,EnergyRegisterCSV.CURRENT_CLASS_NAME,EnergyRegisterCSV.ALL_DATA);
 		
-		//saving result in CSV file
+		
+		//saving result in JSON intermediate register 
 		EnergyRegisterJson.CURRENT_CLASS_NAME = className;
-		EnergyRegisterJson.ENERGY_REGISTER_Json.setFileName("out.json");
-		EnergyRegisterJson.ENERGY_REGISTER_Json.displayIt(resultEnergyConsumed);
+		LOGGER.info("Saving result in JSON intermediate register for test => "+ className);
+		EnergyDisplayHandler.saveResultOfClass(resultEnergyConsumed,EnergyRegisterJson.CURRENT_CLASS_NAME,EnergyRegisterJson.ALL_DATA);
 		
+		// saving all result in CSV and JSON files if all tests are finished;
+		if(NB_TESTS == NB_TESTS_PASSED) {
+			LOGGER.info("Saving result in CSV file in : "+EnergyRegisterCSV.ENERGY_REGISTER_CSV.getFileName());
+			EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt();
+			LOGGER.info("Saving result in JSON file in : "+EnergyRegisterJson.ENERGY_REGISTER_Json.getFileName());
+			EnergyRegisterJson.ENERGY_REGISTER_Json.displayIt();
+		}
 	}
 	
 	private Store getMethodStore(ExtensionContext context) {

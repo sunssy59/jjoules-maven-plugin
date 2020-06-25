@@ -17,13 +17,6 @@
   
   
   <dependencies>
-    
-    	<!-- <dependency>
-		    <groupId>org.apache.maven.plugin-testing</groupId>
-		    <artifactId>maven-plugin-testing-harness</artifactId>
-		    <version>3.3.0</version>
-		    <scope>test</scope>
-		</dependency> -->
 
     <!-- this is all you need to write tests with JUnit Jupiter -->
 		<dependency>

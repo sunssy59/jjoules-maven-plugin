@@ -19,7 +19,7 @@ public class EnergyRegisterCSV extends EnergyDisplayHandler{
 	public static EnergyRegisterCSV ENERGY_REGISTER_CSV = new EnergyRegisterCSV();
 	public static List<Data> ALL_DATA = new ArrayList<Data>();
 	public static String CURRENT_CLASS_NAME = "";
-	private String fileName;
+	private static String fileName = "target/jjoules-reports/report.csv";
 
 	private EnergyRegisterCSV() {
 	}
@@ -34,8 +34,7 @@ public class EnergyRegisterCSV extends EnergyDisplayHandler{
 		this.fileName = fileName;
 	}
 	@Override
-	public void displayIt(Map<String, Result> energyConsumedByDevice) {
-		saveResultOfClass(energyConsumedByDevice,CURRENT_CLASS_NAME,ALL_DATA);
+	public void displayIt() {
 		int id = 1;
 		File file = new File(this.fileName);
 		if (! file.exists()) {

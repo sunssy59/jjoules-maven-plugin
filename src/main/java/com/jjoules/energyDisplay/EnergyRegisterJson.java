@@ -24,7 +24,7 @@ public class EnergyRegisterJson extends EnergyDisplayHandler {
 	public static String CURRENT_CLASS_NAME = "";
 	
 	public static List<Data> ALL_DATA = new ArrayList<Data>();
-	private static String fileName = "out.json";
+	private static String fileName = "target/jjoules-reports/report.json";
 	
 	
 	private EnergyRegisterJson() {
@@ -41,9 +41,8 @@ public class EnergyRegisterJson extends EnergyDisplayHandler {
 	}
 
 	@Override
-	public void displayIt(Map<String, Result> energyConsumedByDevice) {
+	public void displayIt() {
 		Gson gson = new Gson();
-		saveResultOfClass(energyConsumedByDevice,CURRENT_CLASS_NAME,ALL_DATA);
 		File file = new File(this.fileName);
 		if (! file.exists()) {
 			try {
