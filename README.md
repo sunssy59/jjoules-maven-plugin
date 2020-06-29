@@ -43,4 +43,4 @@ public class MyTest{
 
 ```
 
-The result are in files `target/jjoules-reports/out.csv` for csv report and `out.json` for json report.
+The result are in files `target/jjoules-reports/out.csv` for csv report and `target/jjoules-reports/out.json` for json report.
