@@ -19,6 +19,7 @@ Just add these tow dependencies in your pom.xml.
     </dependency>
 ```
 
+
 ```
 	<!-- contains the engine that actually runs the Jupiter-tests -->
 	<dependency>
@@ -29,6 +30,7 @@ Just add these tow dependencies in your pom.xml.
 	</dependency>
 ```
 
+
 And now you can just use the annotation  `@MesureIt` like
 
 ```
@@ -38,6 +40,7 @@ And now you can just use the annotation  `@MesureIt` like
 public class MyTest{
 	//...
 }
+
 ```
 
-The result are in files `out.csv` for csv report and `out.json` for json report.
+The result are in files `target/jjoules-reports/out.csv` for csv report and `out.json` for json report.
