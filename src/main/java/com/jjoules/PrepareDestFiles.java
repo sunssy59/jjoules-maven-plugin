@@ -12,6 +12,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import com.jjoules.energyDisplay.EnergyDisplayHandler;
@@ -21,13 +22,12 @@ import com.jjoules.energyDisplay.EnergyDisplayHandler;
  *
  */
 @Mojo(name = "prepare-output",
-defaultPhase = LifecyclePhase.INITIALIZE)
+defaultPhase = LifecyclePhase.INITIALIZE,requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareDestFiles extends AbstractMojo {
 	
 	
 	@Parameter(defaultValue = "target/jjoules-reports", required = true)
     private String outputDirectory;
-
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {

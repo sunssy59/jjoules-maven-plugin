@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
-import org.apache.maven.model.Build;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -38,7 +36,6 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-//import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 ///**
 // * Goal which touches a timestamp file.
