@@ -1,15 +1,9 @@
-pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v $HOME/.m2:/root/.m2'
-        }
+node{
+    stage('SCM Checkout'){
+        git 'https://github.com/Mamadou59/jjoules-maven-plugin'
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn -B'
-            }
-        }
+    stage('Compile-Install'){
+        def mvnHome = tool name: 'maven-3', type: 'maven'
+        sh "${mvnHome}/bin/mvn clean install
     }
 }
