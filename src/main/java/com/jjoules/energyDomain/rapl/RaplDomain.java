@@ -63,8 +63,10 @@ public abstract class RaplDomain extends EnergyDomain {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			return name;
 		}
-		return name;
+		
 	}
 	
 	/**

@@ -39,7 +39,7 @@ public class RaplDomainTest {
 		for(EnergyDomain domain : availableDomains) {
 			RaplDomain raplDomain = (RaplDomain) domain;
 			String domainName = RaplDomain.openAndReadFile(raplDomain.domainPath()+"/name");
-			assertThat(domainName).isIn(raplDomain.getDomainName(),raplDomain.getDomainName()+"-"+raplDomain.getSocket());
+			assertThat(domainName).isIn(raplDomain.getDomainName(),raplDomain.getDomainName()+"-"+raplDomain.getSocket(),"");
 		}
 	}
 	
@@ -55,7 +55,8 @@ public class RaplDomainTest {
 	@Test
 	public void domainConsumedEnergyFileContentIsNumeric() {
 		for(EnergyDomain domain : availableDomains) {
-			assertThat(domain.getEneregyConsumed()).isGreaterThanOrEqualTo(0);
+			if(RaplDomain.domainPathExist(domain.domainPath()))
+				assertThat(domain.getEneregyConsumed()).isGreaterThanOrEqualTo(0);
 		}
 	}
 	
