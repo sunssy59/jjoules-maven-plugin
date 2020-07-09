@@ -81,11 +81,4 @@ public class EnergyDeviceFactory {
 		}
 		return allDomains;
 	}
-//	public static void main(String[] args) {
-//		EnergyDeviceFactory devicesFactory = new EnergyDeviceFactory();
-//		ArrayList<EnergyDevice> devices = devicesFactory.genDevices(null);
-//		for(EnergyDevice d : devices) {
-//			System.out.println(d.getClass().getName());
-//		}
-//	}
 }

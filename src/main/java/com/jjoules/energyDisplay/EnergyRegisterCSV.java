@@ -63,13 +63,4 @@ public class EnergyRegisterCSV extends EnergyDisplayHandler{
 		}
 		
 	}
-	
-//	public static void main(String[] args) {
-//		EnergyRegisterCSV.ENERGY_REGISTER_CSV.setFileName("output.csv");
-//		Map<String, Double> energyConsumedByDevice = new HashMap<String,Double>();
-//		energyConsumedByDevice.put("Test1", 100.0);
-//		energyConsumedByDevice.put("Test2", 200.0);
-//		EnergyRegisterCSV.ENERGY_REGISTER_CSV.displayIt(energyConsumedByDevice);
-//	}
-
 }

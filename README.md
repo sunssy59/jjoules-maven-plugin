@@ -4,7 +4,6 @@
 
 `mvn install`
 
-`mvn jjoules:runtest`
 
 **Using in other project**
 
@@ -32,7 +31,7 @@ Just add these tow dependencies in your pom.xml.
 ```
 
 
-And now you can just use the annotation  `@MesureIt` like
+And now you can just use this annotation  `@MesureIt` like
 
 ```
 //...
