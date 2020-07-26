@@ -1,4 +1,6 @@
-# jjoules-plugin
+<groupId>org.powerapi.jjoules</groupId>
+  <artifactId>jjoules-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging># jjoules-plugin
 
 **Commandes utiles**
 
@@ -11,11 +13,11 @@ Just add these tow dependencies in your pom.xml.
 
 ```
 	<dependency>
-		<groupId>com.jjoules</groupId>
-		<artifactId>jjoules-maven-plugin</artifactId>
-	  	<version>1.0-SNAPSHOT</version>
-	  	<scope>test</scope>
-    </dependency>
+		<groupId>org.powerapi.jjoules</groupId>
+  	<artifactId>jjoules-maven-plugin</artifactId>
+  	<packaging>maven-plugin</packaging>
+	  <scope>test</scope>
+  </dependency>
 ```
 
 
@@ -43,4 +45,4 @@ public class MyTest{
 
 ```
 
-The result are in files `target/jjoules-reports/report.csv` for csv report and `target/jjoules-reports/report.json` for json report.
+The reports are in files `target/jjoules-reports/report.csv` for csv report and `target/jjoules-reports/report.json` for json report.
