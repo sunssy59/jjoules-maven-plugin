@@ -1,4 +1,4 @@
-package com.jjoules;
+package org.powerapi.jjoules.mojo;
 
 import java.io.BufferedReader;
 import java.io.File;

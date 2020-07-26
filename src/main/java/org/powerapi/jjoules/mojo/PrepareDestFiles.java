@@ -1,21 +1,18 @@
 /**
  * 
  */
-package com.jjoules;
+package org.powerapi.jjoules.mojo;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
-import org.apache.maven.project.MavenProject;
 
-import com.jjoules.energyDisplay.EnergyDisplayHandler;
 
 /**
  * @author sanoussy
@@ -23,11 +20,11 @@ import com.jjoules.energyDisplay.EnergyDisplayHandler;
  */
 @Mojo(name = "prepare-output",
 defaultPhase = LifecyclePhase.INITIALIZE,requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
-public class PrepareDestFiles extends AbstractMojo {
+public class PrepareDestFiles extends AbstractJjoulesMojo {
 	
 	
 	@Parameter(defaultValue = "target/jjoules-reports", required = true)
-    private String outputDirectory;
+    private static String outputDirectory;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
@@ -59,6 +56,9 @@ public class PrepareDestFiles extends AbstractMojo {
 					getLog().info("file "+fileJSON.getAbsolutePath()+" create successfully");
 				else
 					getLog().error("file "+fileJSON.getAbsolutePath()+" create error");
+				
+				//Saving outputDirectory
+				this.directory = this.outputDirectory;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
