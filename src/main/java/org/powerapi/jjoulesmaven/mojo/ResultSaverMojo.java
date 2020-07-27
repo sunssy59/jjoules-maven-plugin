@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.powerapi.jjoules.mojo;
+package org.powerapi.jjoulesmaven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -19,7 +19,7 @@ import org.powerapi.jjoules.energy.display.EnergyRegisterJson;
 public class ResultSaverMojo extends AbstractJjoulesMojo{
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		EnergyRegisterJson.saveIt(this.directory);
+		//EnergyRegisterJson.saveIt(this.directory);
 		
 	}
 

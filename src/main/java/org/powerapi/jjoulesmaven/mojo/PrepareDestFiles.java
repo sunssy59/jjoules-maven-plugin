@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.powerapi.jjoules.mojo;
+package org.powerapi.jjoulesmaven.mojo;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class PrepareDestFiles extends AbstractJjoulesMojo {
 	
 	
 	@Parameter(defaultValue = "target/jjoules-reports", required = true)
-    private static String outputDirectory;
+    private String outputDirectory;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {

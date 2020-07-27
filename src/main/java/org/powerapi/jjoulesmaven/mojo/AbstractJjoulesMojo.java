@@ -1,4 +1,4 @@
-package org.powerapi.jjoules.mojo;
+package org.powerapi.jjoulesmaven.mojo;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
