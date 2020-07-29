@@ -1,7 +1,3 @@
-<groupId>org.powerapi.jjoules</groupId>
-  <artifactId>jjoules-maven-plugin</artifactId>
-  <packaging>maven-plugin</packaging># jjoules-plugin
-
 **Commandes utiles**
 
 `mvn install`
@@ -45,4 +41,6 @@ public class MyTest{
 
 ```
 
-The reports are in files `target/jjoules-reports/report.csv` for csv report and `target/jjoules-reports/report.json` for json report.
+By compiling your project with the goals 	`mvn verify`, `mvn test`, ...
+
+You will get the energy consumption reports of all the test classes in the files `target/jjoules-reports/report.csv` for csv report and `target/jjoules-reports/report.json` for json report.
